@@ -5,10 +5,13 @@
 
 
 class Device:
-    def __init__(self, serial, brand, model):
+    def __init__(self, serial, model):
         self._serial = serial
-        self._brand = brand
         self._model = model
+
+    def __str__(self):
+        msg = self.serial + ' : ' + self.model
+        return msg
 
     @property
     def serial(self):
@@ -17,14 +20,6 @@ class Device:
     @serial.setter
     def serial(self, value):
         self._serial = value
-
-    @property
-    def brand(self):
-        return self._brand
-
-    @brand.setter
-    def brand(self, value):
-        self._brand = value
 
     @property
     def model(self):

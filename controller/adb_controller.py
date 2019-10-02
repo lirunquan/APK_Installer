@@ -5,18 +5,19 @@
 #
 import os
 import time
+import re
 
 from model.adb_model import ADBModel
 from model.device_model import Device
 from PyQt5.QtCore import QThread, pyqtSignal
 
-adb = ADBModel()
+# adb = ADBModel()
 
 
 class ADBController:
 
     def __init__(self, *args, **kwargs):
-        pass
+        self.adb = ADBModel()
 
     @classmethod
     def instance(cls, *args, **kwargs):
@@ -26,36 +27,25 @@ class ADBController:
 
     def get_devices(self):
         cmd = 'adb devices -l'
-        ret = os.popen(cmd).readlines()
-        for string in ret[1:-2]:
-            string = string.split()
-            serial = self.get_serial(string[0])
-            brand = self.get_brand(string[-1])
-            model = self.get_model(string[-2])
-            device = Device(serial, brand, model)
-            adb.add_device(device)
+        ret = os.popen(cmd).read()
+        print(ret)
+        serials = re.findall(r"\n(.+?)\s{2,}device", ret)
+        models = re.findall(r"model:(.+?) ", ret)
+        print(serials)
+        print(models)
+        for s, m in zip(serials, models):
+            device = Device(s, m)
+            self.adb.add_device(device)
 
-    @staticmethod
-    def get_serial(string):
-        return string.split(':')[-1]
-
-    @staticmethod
-    def get_brand(string):
-        return string.split(':')[-1]
-
-    @staticmethod
-    def get_model(string):
-        return string.split(':')[-1]
-
-    @staticmethod
-    def install_apk():
-        apk = adb.apk_filename
-        for device in adb.selected_devices:
-            serial = device.serial
-            cmd = 'adb -s %s install -r %s' % (serial, apk)
-            ret = os.system(cmd)
-            if ret:
-                pass
+    # @staticmethod
+    # def install_apk():
+    #     apk = adb.apk_filename
+    #     for device in adb.selected_devices:
+    #         serial = device.serial
+    #         cmd = 'adb -s %s install -r %s' % (serial, apk)
+    #         ret = os.system(cmd)
+    #         if ret:
+    #             pass
 
 
 class Installing(QThread):
