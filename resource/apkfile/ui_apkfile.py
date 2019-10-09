@@ -21,7 +21,7 @@ class Ui_APK_File_Form(object):
         self.frame_drag.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_drag.setObjectName("frame_drag")
         self.label = QtWidgets.QLabel(self.frame_drag)
-        self.label.setGeometry(QtCore.QRect(140, 70, 102, 12))
+        self.label.setGeometry(QtCore.QRect(90, 70, 200, 12))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.lineEdit_filename = QtWidgets.QLineEdit(APK_File_Form)

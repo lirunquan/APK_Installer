@@ -11,21 +11,15 @@ from model.adb_model import ADBModel
 from model.device_model import Device
 from PyQt5.QtCore import QThread, pyqtSignal
 
-# adb = ADBModel()
-
 
 class ADBController:
 
     def __init__(self, *args, **kwargs):
-        self.adb = ADBModel()
+        pass
 
-    @classmethod
-    def instance(cls, *args, **kwargs):
-        if not hasattr(ADBModel, '_instance'):
-            ADBController._instance = ADBController(*args, **kwargs)
-        return ADBController._instance
-
-    def get_devices(self):
+    @staticmethod
+    def get_devices():
+        adb = ADBModel()
         cmd = 'adb devices -l'
         ret = os.popen(cmd).read()
         print(ret)
@@ -35,8 +29,12 @@ class ADBController:
         print(models)
         for s, m in zip(serials, models):
             device = Device(s, m)
-            self.adb.add_device(device)
+            adb.add_device(device)
 
+    @staticmethod
+    def add_apk(apk_name):
+        adb = ADBModel()
+        adb.apk_filename(apk_name)
     # @staticmethod
     # def install_apk():
     #     apk = adb.apk_filename

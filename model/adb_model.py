@@ -7,16 +7,17 @@ from model.device_model import Device
 
 
 class ADBModel(object):
+    __instance = None
+
     def __init__(self, *args, **kwargs):
         self._device_list = []
         self._apk_filename = ''
         self._selected_devices = []
 
-    @classmethod
-    def instance(cls, *args, **kwargs):
-        if not hasattr(ADBModel, '_instance'):
-            ADBModel._instance = ADBModel(*args, **kwargs)
-        return ADBModel._instance
+    def __new__(cls, *args, **kwargs):
+        if not cls.__instance:
+            cls.__instance = super().__new__(cls, *args, **kwargs)
+        return cls.__instance
 
     def add_device(self, device):
         if not isinstance(device, Device):
@@ -54,3 +55,4 @@ class ADBModel(object):
     @selected_devices.setter
     def selected_devices(self, value):
         self._selected_devices = value
+
