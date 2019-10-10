@@ -14,15 +14,11 @@ class Ui_Device_Item_Form(object):
     def setupUi(self, Device_Item_Form):
         Device_Item_Form.setObjectName("Device_Item_Form")
         Device_Item_Form.resize(350, 20)
-        self.checkBox_select = QtWidgets.QCheckBox(Device_Item_Form)
-        self.checkBox_select.setGeometry(QtCore.QRect(11, 2, 16, 16))
-        self.checkBox_select.setText("")
-        self.checkBox_select.setObjectName("checkBox_select")
         self.label_serial = QtWidgets.QLabel(Device_Item_Form)
-        self.label_serial.setGeometry(QtCore.QRect(50, 2, 120, 16))
+        self.label_serial.setGeometry(QtCore.QRect(20, 2, 120, 16))
         self.label_serial.setObjectName("label_serial")
         self.label_model = QtWidgets.QLabel(Device_Item_Form)
-        self.label_model.setGeometry(QtCore.QRect(200, 2, 120, 16))
+        self.label_model.setGeometry(QtCore.QRect(180, 2, 120, 16))
         self.label_model.setObjectName("label_model")
 
         self.retranslateUi(Device_Item_Form)

@@ -13,23 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QCheckBox" name="checkBox_select">
-   <property name="geometry">
-    <rect>
-     <x>11</x>
-     <y>2</y>
-     <width>16</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_serial">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>20</x>
      <y>2</y>
      <width>120</width>
      <height>16</height>
@@ -42,7 +29,7 @@
   <widget class="QLabel" name="label_model">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>180</x>
      <y>2</y>
      <width>120</width>
      <height>16</height>

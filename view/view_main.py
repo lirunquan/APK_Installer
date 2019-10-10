@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QHBoxLayout
 from resource.main.ui_main import Ui_Main_Form
 from view.view_apkfile import ApkWidget
 from view.view_devices import DevicesWidget
+from controller.adb_controller import ADBController
 
 
 class MainWindow(QMainWindow, Ui_Main_Form):
@@ -15,11 +16,16 @@ class MainWindow(QMainWindow, Ui_Main_Form):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.apk_form = ApkWidget()
+        self.apk_form.filename.connect(ADBController.add_apk)
         apk_h_box = QHBoxLayout(self.widget_apk)
         apk_h_box.addWidget(self.apk_form)
         self.devices_form = DevicesWidget()
         dvc_h_box = QHBoxLayout(self.widget_devices)
         dvc_h_box.addWidget(self.devices_form)
+        self.pushButton_install.clicked.connect(self.do_install)
+
+    def do_install(self):
+        pass
 
 
 if __name__ == '__main__':
