@@ -3,10 +3,9 @@
 # Copyright (c) 2019 3KWan.
 # Description :
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QWidget, QListWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QWidget, QHeaderView, QTableWidgetItem, QTableView
 
 from resource.devices.ui_devices import Ui_Devices_Form
-from view.view_device_item import DeviceItemWidget
 from controller.adb_controller import ADBController
 from model.adb_model import ADBModel
 
@@ -16,25 +15,29 @@ class DevicesWidget(QWidget, Ui_Devices_Form):
         super(DevicesWidget, self).__init__()
         self.setupUi(self)
         self.data = ADBModel()
+        self.tableWidget_devices.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableWidget_devices.horizontalHeader().setVisible(False)
+        self.tableWidget_devices.setHorizontalHeaderLabels(['设备序列号', '设备品牌'])
+        self.tableWidget_devices.setEditTriggers(QTableView.NoEditTriggers)
         self.load_devices()
-        self.listWidget_devices.setSelectionMode(QAbstractItemView.MultiSelection)
         self.pushButton_refresh.clicked.connect(self.load_devices)
         self.checkBox_all.clicked.connect(self.select_all)
 
     def load_devices(self):
-        self.listWidget_devices.clearSelection()
-        self.listWidget_devices.clear()
+        self.tableWidget_devices.clear()
         ADBController.get_devices()
-        for device in self.data.device_list:
-            print(device)
-            item = QListWidgetItem(self.listWidget_devices)
-            item.setSizeHint(QSize(0, 20))
-            widget = DeviceItemWidget(item, device.serial, device.model)
-            self.listWidget_devices.setItemWidget(item, widget)
+        count = len(self.data.device_list)
+        self.tableWidget_devices.setRowCount(count)
+        for i in range(count):
+            device = self.data.device_list[i]
+            item_s = QTableWidgetItem(str(device.serial))
+            self.tableWidget_devices.setItem(i, 0, item_s)
+            item_m = QTableWidgetItem(str(device.model))
+            self.tableWidget_devices.setItem(i, 1, item_m)
 
     def select_all(self):
         state = self.checkBox_all.checkState()
         if state == Qt.Checked:
-            self.listWidget_devices.selectAll()
+            self.tableWidget_devices.selectAll()
         elif state == Qt.Unchecked:
-            self.listWidget_devices.clearSelection()
+            self.tableWidget_devices.clearSelection()

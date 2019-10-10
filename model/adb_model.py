@@ -19,17 +19,23 @@ class ADBModel(object):
             cls.__instance = super().__new__(cls, *args, **kwargs)
         return cls.__instance
 
+    def clear_devices(self):
+        self._device_list.clear()
+
     def add_device(self, device):
         if not isinstance(device, Device):
             raise ValueError('Not an instance of Device')
         else:
             self._device_list.append(device)
 
+    def clear_selected(self):
+        self._selected_devices.clear()
+
     def add_selected(self, device):
-        if not isinstance(device, Device):
-            raise ValueError('Not an instance of Device')
-        else:
-            self._selected_devices.append(device)
+        self._selected_devices.append(device)
+
+    def set_apk_file(self, name):
+        self._apk_filename = name
 
     @property
     def device_list(self):
@@ -42,17 +48,4 @@ class ADBModel(object):
     @property
     def apk_filename(self):
         return self._apk_filename
-
-    @apk_filename.setter
-    def apk_filename(self, name):
-        if not isinstance(name, str):
-            raise ValueError('apk filename needs to be an str, please check your apk file.')
-        elif not name.endswith('.apk'):
-            raise ValueError('\'' + name + '\' is not a normal apk file')
-        else:
-            self._apk_filename = name
-
-    @selected_devices.setter
-    def selected_devices(self, value):
-        self._selected_devices = value
 

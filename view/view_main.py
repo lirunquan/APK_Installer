@@ -16,7 +16,7 @@ class MainWindow(QMainWindow, Ui_Main_Form):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
         self.apk_form = ApkWidget()
-        self.apk_form.filename.connect(ADBController.add_apk)
+        # self.apk_form.filename.connect(ADBController.add_apk)
         apk_h_box = QHBoxLayout(self.widget_apk)
         apk_h_box.addWidget(self.apk_form)
         self.devices_form = DevicesWidget()
@@ -25,7 +25,13 @@ class MainWindow(QMainWindow, Ui_Main_Form):
         self.pushButton_install.clicked.connect(self.do_install)
 
     def do_install(self):
-        pass
+        ADBController.clear_select()
+        l = self.devices_form.tableWidget_devices.selectedItems()
+        for i in range(int(len(l)/2)):
+            item = self.devices_form.tableWidget_devices.item(i, 0)
+            print(item.text())
+            ADBController.add_selected(item.text())
+        ADBController.install_apk()
 
 
 if __name__ == '__main__':

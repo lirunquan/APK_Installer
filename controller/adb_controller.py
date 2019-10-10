@@ -12,6 +12,9 @@ from model.device_model import Device
 from PyQt5.QtCore import QThread, pyqtSignal
 
 
+adb = ADBModel()
+
+
 class ADBController:
 
     def __init__(self, *args, **kwargs):
@@ -19,7 +22,7 @@ class ADBController:
 
     @staticmethod
     def get_devices():
-        adb = ADBModel()
+        adb.clear_devices()
         cmd = 'adb devices -l'
         ret = os.popen(cmd).read()
         print(ret)
@@ -33,29 +36,35 @@ class ADBController:
 
     @staticmethod
     def add_apk(apk_name):
-        adb = ADBModel()
-        adb.apk_filename(apk_name)
-    # @staticmethod
-    # def install_apk():
-    #     apk = adb.apk_filename
-    #     for device in adb.selected_devices:
-    #         serial = device.serial
-    #         cmd = 'adb -s %s install -r %s' % (serial, apk)
-    #         ret = os.system(cmd)
-    #         if ret:
-    #             pass
+        adb.set_apk_file(apk_name)
+
+    @staticmethod
+    def add_selected(selected_serial):
+        adb.add_selected(selected_serial)
+
+    @staticmethod
+    def clear_select():
+        adb.clear_selected()
+
+    @staticmethod
+    def show_test():
+        print(adb.selected_devices)
+
+    @staticmethod
+    def install_apk():
+        for s in adb.selected_devices:
+            t = Installing(s, adb.apk_filename)
+            t.start()
 
 
 class Installing(QThread):
-    ret = pyqtSignal(str)
-
-    def __init__(self, obj, serial, apk):
-        super(Installing, self).__init__(obj)
+    def __init__(self, serial, apk):
+        super(Installing, self).__init__()
         self.serial = serial
         self.apk = apk
 
     def run(self) -> None:
         cmd = 'adb -s %s install -r %s' % (self.serial, self.apk)
+        print(cmd)
         opt = os.system(cmd)
-        self.ret.emit(str(opt))
-        time.sleep(1)
+        print(opt)

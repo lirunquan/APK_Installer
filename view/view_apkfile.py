@@ -3,14 +3,13 @@
 # Copyright (c) 2019 3KWan.
 # Description :
 from PyQt5 import QtGui
-from PyQt5.QtCore import pyqtSignal
 
 from resource.apkfile.ui_apkfile import Ui_APK_File_Form
 from PyQt5.QtWidgets import QWidget, QFileDialog
+from controller.adb_controller import ADBController
 
 
 class ApkWidget(QWidget, Ui_APK_File_Form):
-    filename = pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         super(ApkWidget, self).__init__(*args, **kwargs)
@@ -22,7 +21,7 @@ class ApkWidget(QWidget, Ui_APK_File_Form):
     def open_file_window(self):
         file, _ = QFileDialog.getOpenFileName(self, 'Install apk', '.', '*.apk')
         self.lineEdit_filename.setText(file)
-        self.filename.emit(file)
+        ADBController.add_apk(file)
 
     def dragEnterEvent(self, a0: QtGui.QDragEnterEvent) -> None:
         self.label.setText('拖拽apk文件到这里')
@@ -40,4 +39,6 @@ class ApkWidget(QWidget, Ui_APK_File_Form):
                 self.label.setText('需要.apk后缀的文件')
             else:
                 self.lineEdit_filename.setText(name)
-                self.filename.emit(name)
+                # self.filename.emit(name)
+                ADBController.add_apk(name)
+
