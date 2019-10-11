@@ -4,7 +4,7 @@
 # Description :
 #
 import os
-import time
+import threading
 import re
 
 from model.adb_model import ADBModel
@@ -52,12 +52,15 @@ class ADBController:
 
     @staticmethod
     def install_apk():
+        threads = []
         for s in adb.selected_devices:
             t = Installing(s, adb.apk_filename)
-            t.start()
+            threads.append(t)
+        for thread in threads:
+            thread.start()
 
 
-class Installing(QThread):
+class Installing(threading.Thread):
     def __init__(self, serial, apk):
         super(Installing, self).__init__()
         self.serial = serial
@@ -66,5 +69,5 @@ class Installing(QThread):
     def run(self) -> None:
         cmd = 'adb -s %s install -r %s' % (self.serial, self.apk)
         print(cmd)
-        opt = os.system(cmd)
+        opt = os.popen(cmd)
         print(opt)

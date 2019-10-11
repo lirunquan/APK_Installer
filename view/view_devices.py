@@ -24,6 +24,7 @@ class DevicesWidget(QWidget, Ui_Devices_Form):
         self.checkBox_all.clicked.connect(self.select_all)
 
     def load_devices(self):
+        self.checkBox_all.setChecked(False)
         self.tableWidget_devices.clear()
         ADBController.get_devices()
         count = len(self.data.device_list)
