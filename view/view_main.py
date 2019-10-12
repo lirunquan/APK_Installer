@@ -4,7 +4,7 @@
 # Description :
 import sys
 
-from PyQt5.QtWidgets import QApplication, QMainWindow, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QHBoxLayout, QMessageBox
 from resource.main.ui_main import Ui_Main_Form
 from view.view_apkfile import ApkWidget
 from view.view_devices import DevicesWidget
@@ -32,7 +32,14 @@ class MainWindow(QMainWindow, Ui_Main_Form):
             item = self.devices_form.tableWidget_devices.item(i, 0)
             print(item.text())
             ADBController.add_selected(item.text())
-        ADBController.install_apk()
+        if not ADBController.has_devices():
+            msg = QMessageBox.warning(self, '警告', '未获取到设备', QMessageBox.Ok, QMessageBox.Ok)
+        elif not ADBController.has_selected():
+            msg = QMessageBox.warning(self, '警告', '未选取设备', QMessageBox.Ok, QMessageBox.Ok)
+        elif not ADBController.has_apk():
+            msg = QMessageBox.critical(self, '错误', '未获取到apk文件', QMessageBox.Ok, QMessageBox.Ok)
+        else:
+            ADBController.install_apk()
 
 
 if __name__ == '__main__':

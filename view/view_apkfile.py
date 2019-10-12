@@ -2,6 +2,8 @@
 # Created by #Lirunquan, on 2019-09.
 # Copyright (c) 2019 3KWan.
 # Description :
+import platform
+
 from PyQt5 import QtGui
 
 from resource.apkfile.ui_apkfile import Ui_APK_File_Form
@@ -33,7 +35,11 @@ class ApkWidget(QWidget, Ui_APK_File_Form):
     def dropEvent(self, a0: QtGui.QDropEvent) -> None:
         if self.frame_drag.pos().x() <= a0.pos().x() <= self.frame_drag.pos().x() + self.frame_drag.width() \
                 and self.frame_drag.pos().y() <= a0.pos().y() <= self.frame_drag.pos().y() + self.frame_drag.height():
-            name = a0.mimeData().text().replace('file:///', '')
+            name = ''
+            if platform.system() == 'Darwin':
+                name = a0.mimeData().text().replace('file:///', '/')
+            elif platform.system() == 'Windows':
+                name = a0.mimeData().text().replace('file:///', '')
             print(name)
             if not name.endswith('.apk'):
                 self.label.setText('需要.apk后缀的文件')

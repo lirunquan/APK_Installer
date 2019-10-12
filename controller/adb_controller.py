@@ -43,6 +43,18 @@ class ADBController:
         adb.add_selected(selected_serial)
 
     @staticmethod
+    def has_devices():
+        return len(adb.device_list) > 0
+
+    @staticmethod
+    def has_selected():
+        return len(adb.selected_devices) > 0
+
+    @staticmethod
+    def has_apk():
+        return len(adb.apk_filename) > 0
+
+    @staticmethod
     def clear_select():
         adb.clear_selected()
 
