@@ -13,9 +13,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Devices_Form(object):
     def setupUi(self, Devices_Form):
         Devices_Form.setObjectName("Devices_Form")
-        Devices_Form.resize(390, 200)
+        Devices_Form.resize(400, 200)
         self.tableWidget_devices = QtWidgets.QTableWidget(Devices_Form)
-        self.tableWidget_devices.setGeometry(QtCore.QRect(10, 10, 370, 150))
+        self.tableWidget_devices.setGeometry(QtCore.QRect(10, 10, 381, 150))
         self.tableWidget_devices.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
         self.tableWidget_devices.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.tableWidget_devices.setRowCount(0)
@@ -30,7 +30,7 @@ class Ui_Devices_Form(object):
         self.checkBox_all.setGeometry(QtCore.QRect(20, 174, 47, 16))
         self.checkBox_all.setObjectName("checkBox_all")
         self.pushButton_refresh = QtWidgets.QPushButton(Devices_Form)
-        self.pushButton_refresh.setGeometry(QtCore.QRect(300, 171, 75, 23))
+        self.pushButton_refresh.setGeometry(QtCore.QRect(310, 171, 75, 23))
         self.pushButton_refresh.setObjectName("pushButton_refresh")
 
         self.retranslateUi(Devices_Form)
