@@ -27,10 +27,10 @@ class Ui_Devices_Form(object):
         self.tableWidget_devices.setHorizontalHeaderItem(1, item)
         self.tableWidget_devices.horizontalHeader().setCascadingSectionResizes(False)
         self.checkBox_all = QtWidgets.QCheckBox(Devices_Form)
-        self.checkBox_all.setGeometry(QtCore.QRect(20, 174, 47, 16))
+        self.checkBox_all.setGeometry(QtCore.QRect(20, 167, 47, 16))
         self.checkBox_all.setObjectName("checkBox_all")
         self.pushButton_refresh = QtWidgets.QPushButton(Devices_Form)
-        self.pushButton_refresh.setGeometry(QtCore.QRect(310, 171, 75, 23))
+        self.pushButton_refresh.setGeometry(QtCore.QRect(310, 163, 75, 23))
         self.pushButton_refresh.setObjectName("pushButton_refresh")
 
         self.retranslateUi(Devices_Form)

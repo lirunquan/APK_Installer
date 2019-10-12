@@ -25,11 +25,11 @@ class Ui_APK_File_Form(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.lineEdit_filename = QtWidgets.QLineEdit(APK_File_Form)
-        self.lineEdit_filename.setGeometry(QtCore.QRect(10, 180, 291, 23))
+        self.lineEdit_filename.setGeometry(QtCore.QRect(10, 173, 291, 23))
         self.lineEdit_filename.setReadOnly(True)
         self.lineEdit_filename.setObjectName("lineEdit_filename")
         self.pushButton_file = QtWidgets.QPushButton(APK_File_Form)
-        self.pushButton_file.setGeometry(QtCore.QRect(310, 180, 75, 23))
+        self.pushButton_file.setGeometry(QtCore.QRect(310, 173, 75, 23))
         self.pushButton_file.setObjectName("pushButton_file")
 
         self.retranslateUi(APK_File_Form)
