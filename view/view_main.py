@@ -15,6 +15,7 @@ class MainWindow(QMainWindow, Ui_Main_Form):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.setupUi(self)
+        self.setFixedSize(self.width(), self.height())
         self.apk_form = ApkWidget()
         # self.apk_form.filename.connect(ADBController.add_apk)
         apk_h_box = QHBoxLayout(self.widget_apk)
